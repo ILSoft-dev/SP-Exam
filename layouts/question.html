@@ -1,0 +1,27 @@
+---
+layout: default
+---
+{% assign qi = page.n | minus: 1 %}
+{% assign q = site.data.questions[qi] %}
+{% assign si = q.s | minus: 1 %}
+{% assign sec = site.data.sections[si] %}
+<article class="q" data-q="{{ page.n }}">
+  <p class="q__meta"><span class="badge">Вопрос {{ page.n }} / {{ site.data.questions.size }}</span> <span class="q__sec">{{ sec.icon }} {{ sec.t }}</span></p>
+  <h1>{{ q.t }}</h1>
+  {{ content }}
+  <label class="learned">
+    <input type="checkbox" data-learned="{{ page.n }}"> Я выучил(а) этот вопрос
+  </label>
+</article>
+<nav class="pager" aria-label="Соседние вопросы">
+  {% if page.n > 1 %}
+    {% assign pn = page.n | minus: 1 %}{% assign pnum = pn | prepend: '0' | slice: -2, 2 %}
+    {% assign pi = pn | minus: 1 %}{% assign pq = site.data.questions[pi] %}
+    <a class="pager__btn" rel="prev" href="{{ '/q/' | append: pnum | append: '.html' | relative_url }}"><small>← Вопрос {{ pn }}</small><span>{{ pq.t }}</span></a>
+  {% else %}<span></span>{% endif %}
+  {% if page.n < site.data.questions.size %}
+    {% assign nn = page.n | plus: 1 %}{% assign nnum = nn | prepend: '0' | slice: -2, 2 %}
+    {% assign nq = site.data.questions[page.n] %}
+    <a class="pager__btn pager__btn--next" rel="next" href="{{ '/q/' | append: nnum | append: '.html' | relative_url }}"><small>Вопрос {{ nn }} →</small><span>{{ nq.t }}</span></a>
+  {% endif %}
+</nav>
