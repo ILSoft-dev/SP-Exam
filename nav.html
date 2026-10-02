@@ -1,0 +1,25 @@
+{% if page.n %}{% assign ci = page.n | minus: 1 %}{% assign cur_q = site.data.questions[ci] %}{% endif %}
+<nav class="drawer" id="drawer" aria-label="Оглавление" hidden>
+  <div class="drawer__head">
+    <strong>Оглавление</strong>
+    <button class="icon-btn" type="button" data-close-drawer aria-label="Закрыть оглавление">✕</button>
+  </div>
+  <ul class="drawer__links">
+    <li><a href="{{ '/' | relative_url }}">🏠 Главная</a></li>
+    <li><a href="{{ '/quiz.html' | relative_url }}">✅ Самопроверка (тест)</a></li>
+    <li><a href="{{ '/api.html' | relative_url }}">⌨️ Шпаргалка: WinAPI и Linux</a></li>
+    <li><a href="{{ '/glossary.html' | relative_url }}">📖 Глоссарий</a></li>
+  </ul>
+  {% for sec in site.data.sections %}
+  <details class="drawer__sec"{% if cur_q and cur_q.s == sec.id %} open{% endif %}>
+    <summary>{{ sec.icon }} {{ sec.t }}</summary>
+    <ol>
+      {% for q in site.data.questions %}{% if q.s == sec.id %}
+      {% assign num = q.n | prepend: '0' | slice: -2, 2 %}
+      <li value="{{ q.n }}"><a href="{{ '/q/' | append: num | append: '.html' | relative_url }}"{% if page.n == q.n %} aria-current="page"{% endif %}>{{ q.t }}</a></li>
+      {% endif %}{% endfor %}
+    </ol>
+  </details>
+  {% endfor %}
+</nav>
+<div class="scrim" data-close-drawer hidden></div>

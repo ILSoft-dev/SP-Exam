@@ -1,0 +1,25 @@
+title: "Системное программирование"
+description: "Пособие для подготовки к экзамену по системному программированию: ответы на 40 вопросов, шпаргалка по WinAPI и системным вызовам Linux, глоссарий и самопроверка"
+lang: ru
+baseurl: "/SP-Exam"
+url: "https://inikonoff.github.io"
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  syntax_highlighter_opts:
+    disable: true
+
+defaults:
+  - scope: { path: "q" }
+    values: { layout: question }
+  - scope: { path: "" }
+    values: { layout: default }
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
